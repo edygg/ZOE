@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Zoe.Models.Surgery>
+
+@{
+    ViewBag.Title = "Lista de Cirugías";
+    Zoe.Models.ZoeContext zoedb = new Zoe.Models.ZoeContext();
+    Zoe.Models.UsersContext usersdb = new Zoe.Models.UsersContext();
+    var doctorid = -1;
+}
+
+<div class="col-md-8 col-md-offset-2">
+    <h2>Lista de Cirugías</h2>
+
+    <div>
+        <h3>Cirugías del doctor @(User.Identity.Name)</h3>
+        @foreach (var surgery in Model)
+        { 
+            <div class="well">
+                <ul>
+                    <li><strong>Paciente:</strong> <a href="/Patient/Details/@surgery.Patient_Id">@((from patient in zoedb.Patients where patient.Id == surgery.Patient_Id select patient).First().NombreCompleto)</a></li>
+                    <li><strong>Cirugía de:</strong> @((from surgerytype in zoedb.SurgeryTypes where surgerytype.Id == surgery.SurgeryType_Id select surgerytype).First().Nombre)</li>
+                    <li><strong>Hora:</strong> @(string.Format("{0:dddd dd/MMM/yyyy hh:mm tt}", surgery.FechaInicio))</li>
+                </ul>
+                @if (string.IsNullOrEmpty(surgery.OjosOperados) || string.IsNullOrEmpty(surgery.AgudezaVisual))
+                {
+                    <div class="row col-sm-offset-1">
+                        @Html.ActionLink("Registrar cirugía realizada", "Edit", "Surgery", new { id = surgery.Id }, new { @class = "btn btn-primary" })
+                    </div>   
+                }
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,57 @@
+﻿@model Zoe.Models.SurgeryType
+
+@{
+    ViewBag.Title = "Editar un tipo de cirugía";
+}
+
+<div class="col-md-8 col-md-offset-2">
+    <h2>Agregar un tipo de cirugía</h2>
+    <br />
+
+    @using (Html.BeginForm("Edit", "SurgeryType", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <div class="form-group">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Nombre)
+                </div>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Nombre)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Horas)
+                </div>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Horas, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Horas)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Minutos)
+                </div>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Minutos, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Minutos)
+                </div>
+            </div>
+
+            <div class="btn-group">
+                @Html.ActionLink("Volver a la lista", "Index", "SurgeryType", new { @class = "btn btn-primary" })
+                <input type="submit" value="Guardar" class="btn btn-success" />
+            </div>
+        </fieldset>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

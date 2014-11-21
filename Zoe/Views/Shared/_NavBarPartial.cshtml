@@ -1,0 +1,61 @@
+﻿<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="@Url.Action("Index", "Home")" class="navbar-brand">Centro de Salud Integral Zoe</a>
+        </div>
+        <ul class="nav navbar-nav">
+            @if (User.IsInRole("Admin") || User.IsInRole("TrabajadorSocial"))
+            {
+             <li class="dropdown">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown">Trabajo Social <i class="fa fa-caret-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="@Url.Action("Create", "Patient")">Agregar un paciente</a></li>
+                    <li><a href="@Url.Action("Index", "Patient")">Ver lista de pacientes</a></li>
+                    <li><a href="@Url.Action("Create", "Surgery")">Agregar una cirugía</a></li>
+                </ul>
+            </li>   
+            }
+            
+            @if (User.IsInRole("Admin") || User.IsInRole("Doctor"))
+            {
+             <li class="dropdown">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown">Cirugía <i class="fa fa-caret-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Ver horario", "Details", "Surgery")</li>
+                </ul>
+            </li>   
+            }
+            
+            @if (User.IsInRole("Admin"))
+            {
+              <li class="dropdown">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown">Administración <i class="fa fa-caret-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Agregar un nuevo usuario", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                    <li>@Html.ActionLink("Administrar roles y permisos", "RoleIndex", "Account")</li>
+                    <li class="divider"></li>
+                    <li><a href="@Url.Action("Index", "SurgeryType")">Ver lista de tipos de Cirugía</a></li>
+                </ul>
+            </li>  
+            } 
+        </ul>
+
+        <ul class="nav navbar-nav pull-right">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <p class="navbar-text">Bienvenido @User.Identity.Name</p>
+                <li>
+                    <a href="javascript:document.getElementById('logoutForm').submit()">Cerrar Sesión</a>
+                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                    }
+                </li>
+            }
+            else
+            {
+                <li>@Html.ActionLink("Entrar", "Login", "Account")</li>
+            }
+        </ul>
+    </div>
+</nav>

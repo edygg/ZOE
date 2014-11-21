@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "Agregar un rol a un usuario";
+}
+
+<div class="col-md-8 col-md-offset-2">
+    <h2>Agregar un rol a un usuario</h2>
+    <br />
+
+    @using (Html.BeginForm("RoleAddToUser", "Account", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <div class="alert alert-warning">@ViewBag.ResultMessage</div>
+        
+        <div class="form-group">
+            <label class="col-md-3 control-label">Username</label>
+            <div class="col-md-9">
+                @Html.TextBox("UserName", "", "", new { @class = "form-control" })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-md-3 control-label">Nombre del rol</label>
+            <div class="col-md-9">
+                @Html.DropDownList("RoleName", ViewBag.Roles as SelectList, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <input type="submit" value="Guardar cambios" class="btn btn-success" />
+    }
+    <hr />
+    @using (Html.BeginForm("GetRoles", "Account", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <label class="col-md-3 control-label">Username</label>
+            <div class="col-md-9">
+                @Html.TextBox("UserName", "", "", new { @class = "form-control" })
+            </div>
+        </div>
+        
+        <input type="submit" value="Ver los roles del usuario" class="btn btn-info" />
+    }
+    <br />
+    @if (ViewBag.RolesForThisUser != null)
+    {
+        <div class="col-md-8 col-md-offset-2">
+            <h4>Roles asignados para el usuario</h4>
+            <ul class="list-group">
+                @foreach (string s in ViewBag.RolesForThisUser)
+                {
+                    <li class="list-group-item">@s</li>
+                }
+            </ul>
+        </div>
+    }
+</div>

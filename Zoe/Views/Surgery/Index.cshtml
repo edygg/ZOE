@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Zoe.Models.Surgery>
+
+@{
+    ViewBag.Title = "Lista de Cirugías";
+    Zoe.Models.ZoeContext zoedb = new Zoe.Models.ZoeContext();
+    Zoe.Models.UsersContext usersdb = new Zoe.Models.UsersContext();
+    var doctorid = -1;
+}
+
+<div class="col-md-8 col-md-offset-2">
+    <h2>Lista de Cirugías</h2>
+
+    @Html.ActionLink("Agendar una cirugía", "Create", "Surgery", new { @class = "btn btn-success" })
+    <br />
+    @if (TempData["ResultMessage"] != null)
+    {
+        <div class="alert alert-warning">@TempData["ResultMessage"]</div>
+    }
+    <div class="panel-group" id="acordion">
+        @foreach (var surgery in Model)
+        {
+            if (doctorid != surgery.Doctor_UsersId)
+            {
+                {
+                    doctorid = surgery.Doctor_UsersId;
+                }
+                <br />
+                <h2>Cirugías del doctor @((from user in usersdb.UserProfiles where user.UserId == doctorid select user).First().UserName)</h2>
+            }
+            
+            if (doctorid == surgery.Doctor_UsersId)
+            {
+                <div class="well">
+                    <ul>
+                        <li><strong>Paciente:</strong> <a href="/Patient/Details/@surgery.Patient_Id">@((from patient in zoedb.Patients where patient.Id == surgery.Patient_Id select patient).First().NombreCompleto)</a></li>
+                        <li><strong>Cirugía de:</strong> @((from surgerytype in zoedb.SurgeryTypes where surgerytype.Id == surgery.SurgeryType_Id select surgerytype).First().Nombre)</li>
+                        <li><strong>Hora:</strong> @(string.Format("{0:dddd dd/MMM/yyyy hh:mm tt}", surgery.FechaInicio))</li>
+                    </ul>
+                </div>
+            }
+                  
+        }
+    </div>
+</div>

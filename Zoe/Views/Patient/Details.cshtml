@@ -1,0 +1,66 @@
+﻿@model Zoe.Models.Patient
+
+@{
+    ViewBag.Title = "Detalles de un paciente";
+}
+<div class="col-md-8 col-md-offset-2">
+    <div class="jumbotron">
+        <h2>@Html.DisplayFor(model => model.Nombres) @Html.DisplayFor(model => model.Apellidos)</h2>
+        <h4><strong>No. Expediente:</strong> @Html.DisplayFor(model => model.NoExpediente)</h4>
+
+        <div class="row">
+            <div class="col-md-6">
+                <span class="label label-primary label-large"><strong>Edad:</strong> @Html.DisplayFor(model => model.Edad)</span>
+            </div>
+            <div class="col-md-6">
+                @if (!Model.TelefonoCelular.IsEmpty() && !Model.TelefonoFijo.IsEmpty())
+                {
+                    <span class="label label-info label-large"><strong>Teléfonos:</strong> @Html.DisplayFor(model => model.TelefonoCelular) / @Html.DisplayFor(model => model.TelefonoFijo)</span>
+                }
+                else if (!Model.TelefonoCelular.IsEmpty())
+                {
+                    <span class="label label-info label-large"><strong>Teléfonos:</strong> @Html.DisplayFor(model => model.TelefonoCelular)</span>
+                }
+                else
+                {
+                    <span class="label label-info label-large"><strong>Teléfonos:</strong> @Html.DisplayFor(model => model.TelefonoFijo)</span>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <h4 class="list-group-item-heading">Dirección</h4>
+                <p class="list-group-item-text">@Html.DisplayFor(model => model.Domicilio)</p>
+            </li>
+            <li class="list-group-item">
+                <h4 class="list-group-item-heading">Lugar de procedencia</h4>
+                <p class="list-group-item-text">@Html.DisplayFor(model => model.Ciudad), @Html.DisplayFor(model => model.Departamento)</p>
+            </li>
+            <li class="list-group-item">
+                <h4 class="list-group-item-heading">Nacionalidad</h4>
+                <p class="list-group-item-text">@Html.DisplayFor(model => model.Nacionalidad)</p>
+            </li>
+            <li class="list-group-item">
+                <h4 class="list-group-item-heading">Estado Civil</h4>
+                <p class="list-group-item-text">@Html.DisplayFor(model => model.EstadoCivil)</p>
+            </li>
+            <li class="list-group-item">
+                <h4 class="list-group-item-heading">No. Hijos</h4>
+                <p class="list-group-item-text">@Html.DisplayFor(model => model.NoHijos)</p>
+            </li>
+            <li class="list-group-item">
+                <h4 class="list-group-item-heading">Observaciones</h4>
+                <p class="list-group-item-text">@Html.DisplayFor(model => model.Observaciones)</p>
+            </li>
+        </ul>
+    </div>
+    @if (!User.IsInRole("Doctor"))
+    {
+        <div class="btn-group">
+            @Html.ActionLink("Editar información", "Edit", new { id = Model.Id }, new { @class = "btn btn-info" })
+            @Html.ActionLink("Volver al listado", "Index", "Patient", new { @class = "btn btn-primary" })
+        </div>   
+    }
+</div>

@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Agregar un nuevo rol";
+}
+<div class="col-md-6 col-md-offset-3">
+    <h2>Crear un rol</h2>
+    <br />
+    @using (Html.BeginForm("RoleCreate", "Account", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            <label class="col-md-4 control-label">Nombre del rol</label>
+            <div class="col-md-8">
+                @Html.TextBox("RoleName","", "", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="btn-group">
+            @Html.ActionLink("Volver a la lista", "RoleIndex", "Account", new { @class = "btn btn-primary" })
+            <input type="submit" value="Guardar" class="btn btn-success" />
+        </div>
+    }
+</div>

@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Administar roles y permisos";
+}
+
+<div class="col-md-8 col-md-offset-2">
+    <h2>Administrar roles y permisos</h2>
+    <br />
+    <div class="btn-group">
+        @Html.ActionLink("Crear un nuevo rol", "RoleCreate", "Account", new { @class = "btn btn-success" })
+        @Html.ActionLink("Agregar un rol a un usuario", "RoleAddToUser", "Account", new { @class = "btn btn-primary" })
+    </div>
+
+    <hr />
+    
+    
+    <div class="col-md-6 col-md-offset-3">
+        <h3>Roles actuales</h3>
+        <ul class="list-group">
+            @foreach (string s in Model)
+            {
+                <li class="list-group-item">
+                    <a href="/Account/RoleDelete?RoleName=@s" class="label label-danger" style="float:right">Eliminar</a>
+                    @s
+                </li>
+            }
+        </ul>
+    </div>
+</div>

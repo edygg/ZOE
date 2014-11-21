@@ -1,0 +1,196 @@
+﻿@model Zoe.Models.Patient
+
+@{
+    ViewBag.Title = "Editar un paciente";
+
+    var items = new List<SelectListItem>();
+    items.Add(new SelectListItem { Text = "Islas de la Bahia", Value = "Islas de la Bahia" });
+    items.Add(new SelectListItem { Text = "Cortes", Value = "Cortes" });
+    items.Add(new SelectListItem { Text = "Atlantida", Value = "Atlantida" });
+    items.Add(new SelectListItem { Text = "Colon", Value = "Colon" });
+    items.Add(new SelectListItem { Text = "Gracias a Dios", Value = "Gracias a Dios" });
+    items.Add(new SelectListItem { Text = "Copan", Value = "Copan" });
+    items.Add(new SelectListItem { Text = "Santa Barbara", Value = "Santa Barbara" });
+    items.Add(new SelectListItem { Text = "Yoro", Value = "Yoro" });
+    items.Add(new SelectListItem { Text = "Olancho", Value = "Olancho" });
+    items.Add(new SelectListItem { Text = "Ocotepeque", Value = "Ocotepeque" });
+    items.Add(new SelectListItem { Text = "Lempira", Value = "Lempira" });
+    items.Add(new SelectListItem { Text = "Intibuca", Value = "Intibuca" });
+    items.Add(new SelectListItem { Text = "Comayagua", Value = "Comayagua" });
+    items.Add(new SelectListItem { Text = "Francisco Morazan", Value = "Francisco Morazan" });
+    items.Add(new SelectListItem { Text = "El Paraiso", Value = "El Paraiso" });
+    items.Add(new SelectListItem { Text = "La Paz", Value = "La Paz" });
+    items.Add(new SelectListItem { Text = "Valle", Value = "Valle" });
+    items.Add(new SelectListItem { Text = "Choluteca", Value = "Choluteca" });
+
+    var DepartmentsHonduras = new SelectList(items, "Value", "Text");
+
+    var items2 = new List<SelectListItem>();
+    items2.Add(new SelectListItem { Text = "Soltero", Value = "Soltero" });
+    items2.Add(new SelectListItem { Text = "Casado", Value = "Casado" });
+    items2.Add(new SelectListItem { Text = "Divorciado", Value = "Divorciado" });
+    items2.Add(new SelectListItem { Text = "Viudo", Value = "Viudo" });
+    items2.Add(new SelectListItem { Text = "Libre", Value = "Libre" });
+
+    var MaritalStateItems = new SelectList(items2, "Value", "Text");
+}
+
+<div class="col-md-8 col-md-offset-2" >
+    <h2>Editar información de un paciente</h2>
+
+    @using (Html.BeginForm("Edit", "Patient", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <div class="form-group">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.NoExpediente)
+                </div>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NoExpediente, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Nombres)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Nombres)
+                </div>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Nombres, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Nombres)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Apellidos)
+                </div>
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Apellidos, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Apellidos)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Domicilio)
+                </div>
+                <div class="col-md-8">
+                    @Html.TextAreaFor(model => model.Domicilio, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Domicilio)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.TelefonoFijo, "Teléfono Fijo")
+                </div>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TelefonoFijo)
+                    @Html.ValidationMessageFor(model => model.TelefonoFijo)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.TelefonoCelular, "Teléfono Celular")
+                </div>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TelefonoCelular)
+                    @Html.ValidationMessageFor(model => model.TelefonoCelular)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Ciudad)
+                </div>
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Ciudad, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Ciudad)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Departamento)
+                </div>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.Departamento, DepartmentsHonduras, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Departamento)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Nacionalidad)
+                </div>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Nacionalidad, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Nacionalidad)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Edad)
+                </div>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Edad, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Edad)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.EstadoCivil, "Estado Civil")
+                </div>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.EstadoCivil, MaritalStateItems, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EstadoCivil)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.NoHijos, "Número de Hijos")
+                </div>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NoHijos)
+                    @Html.ValidationMessageFor(model => model.NoHijos)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Ocupacion)
+                </div>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Ocupacion)
+                    @Html.ValidationMessageFor(model => model.Ocupacion)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Observaciones)
+                </div>
+                <div class="col-md-8">
+                    @Html.TextAreaFor(model => model.Observaciones)
+                    @Html.ValidationMessageFor(model => model.Observaciones)
+                </div>
+            </div>
+
+            <div class="btn-group">
+                @Html.ActionLink("Volver al listado", "Index", "Patient", new { @class = "btn btn-primary" })
+                <input type="submit" value="Guardar" class="btn btn-success" />
+            </div>
+        </fieldset>
+    }
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
